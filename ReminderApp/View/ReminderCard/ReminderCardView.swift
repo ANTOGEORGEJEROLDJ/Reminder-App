@@ -38,7 +38,7 @@ struct ReminderCardView: View {
 
                     HStack(spacing: 6) {
                         Image(systemName: "clock")
-                            .foregroundColor(.white.opacity(0.6))
+                            .foregroundColor(.red.opacity(0.6))
                         Text(reminder.time?.formatted(date: .omitted, time: .shortened) ?? "")
                             .foregroundColor(.black.opacity(0.6))
                             .font(.footnote)
@@ -54,9 +54,10 @@ struct ReminderCardView: View {
                 }
 
                 Spacer()
-
-                if let imageData = reminder.image,
-                   let uiImage = UIImage(data: imageData) {
+                
+                // Image based on saved imageName
+                if let imageName = reminder.imageName,
+                   let uiImage = UIImage(named: imageName) {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
@@ -64,7 +65,24 @@ struct ReminderCardView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.3), lineWidth: 1))
                         .shadow(radius: 4)
+                } else {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.gray.opacity(0.1))
+                        .frame(width: 70, height: 70)
+                        .overlay(Text("No Image").foregroundColor(.gray))
                 }
+
+
+//                if let imageData = reminder.image,
+//                   let uiImage = UIImage(data: imageData) {
+//                    Image(uiImage: uiImage)
+//                        .resizable()
+//                        .aspectRatio(contentMode: .fill)
+//                        .frame(width: 70, height: 70)
+//                        .clipShape(RoundedRectangle(cornerRadius: 15))
+//                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.3), lineWidth: 1))
+//                        .shadow(radius: 4)
+//                }
             }
             .padding()
         }

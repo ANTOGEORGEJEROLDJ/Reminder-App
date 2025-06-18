@@ -24,6 +24,7 @@ class ReminderViewModel: ObservableObject {
         reminder.detail = detail
         reminder.time = time
         reminder.isEnabled = isEnabled
+        reminder.imageName = title // Save title as image name
 
         if let imageData = selectedImage?.jpegData(compressionQuality: 0.8) {
             reminder.image = imageData
