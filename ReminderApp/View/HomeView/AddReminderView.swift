@@ -5,16 +5,18 @@
 //  Created by Paranjothi iOS MacBook Pro on 18/06/25.
 //
 
+//  AddReminderView.swift
+//  ReminderApp
+
 import SwiftUI
 
 struct AddReminderView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var context
     @StateObject private var vm = ReminderViewModel()
-    @State private var showImagePicker = false
-    @State private var image: UIImage?
 
     let reminderTitles = [
+        "Selecting Titles",
         "Drinking water",
         "Crash report",
         "Working status",
@@ -30,55 +32,33 @@ struct AddReminderView: View {
 
             ScrollView {
                 VStack(spacing: 24) {
-                    // Image section
-                    Group {
-                        if let image = image {
-                            Image(uiImage: image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 180, height: 180)
-                                .clipShape(RoundedRectangle(cornerRadius: 20))
-                                .overlay(RoundedRectangle(cornerRadius: 20)
-                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1))
-                        } else {
-                            RoundedRectangle(cornerRadius: 20)
-                                .fill(Color.gray.opacity(0.1))
-                                .frame(width: 180, height: 180)
-                                .overlay(Text("No Image Selected")
-                                    .foregroundColor(.white.opacity(0.7)))
-                        }
 
-                        Button(action: {
-                            showImagePicker = true
-                        }) {
-                            Text("Select Image")
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(Color.blue.opacity(0.7))
-                                .cornerRadius(15)
-                                .padding(.horizontal)
-                        }
-                        .sheet(isPresented: $showImagePicker) {
-                            ImagePicker(selectedImage: $image)
-                                .onDisappear {
-                                    if let img = image {
-                                        vm.selectedImage = img
-                                    }
-                                }
-                        }
+                    // Image section based on selected title
+                    if let uiImage = UIImage(named: vm.title) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 180, height: 180)
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .overlay(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                    } else {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.gray.opacity(0.1))
+                            .frame(width: 180, height: 180)
+                            .overlay(Text("No Image")
+                                .foregroundColor(.gray))
                     }
 
                     // Picker
-                    HStack() {
+                    HStack {
                         Text("Reminder Type")
                             .foregroundColor(.black.opacity(0.8))
                             .font(.headline)
                             .padding(.leading, 20)
-                        
+
                         Spacer()
-                        
+
                         Picker("Select Title", selection: $vm.title) {
                             ForEach(reminderTitles, id: \.self) { title in
                                 Text(title).tag(title)
@@ -105,19 +85,19 @@ struct AddReminderView: View {
                             .padding()
                             .background(Color.black.opacity(0.1))
                             .cornerRadius(10)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding(.horizontal)
                     }
 
                     // Time Picker
-                    HStack() {
+                    HStack {
                         Text("Select Time")
                             .foregroundColor(.black.opacity(0.8))
                             .font(.headline)
                             .padding(.leading, 20)
 
                         Spacer()
-                        
+
                         DatePicker("", selection: $vm.time, displayedComponents: .hourAndMinute)
                             .datePickerStyle(.compact)
                             .labelsHidden()
