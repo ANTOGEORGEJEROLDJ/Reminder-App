@@ -19,25 +19,27 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             // Background gradient
-            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
+            Color.white
+//            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)]),
+//                           startPoint: .topLeading,
+//                           endPoint: .bottomTrailing)
                 .ignoresSafeArea()
 
             VStack(spacing: 20) {
                 HStack {
                     Text("⏰ My Reminders")
                         .font(.largeTitle.bold())
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .padding(.leading)
 
                     Spacer()
+                    
                 }
 
                 if reminders.isEmpty {
                     Spacer()
                     Text("No Reminders Yet")
-                        .foregroundColor(.white.opacity(0.8))
+                        .foregroundColor(.gray.opacity(0.8))
                         .font(.title2)
                     Spacer()
                 } else {
@@ -66,9 +68,10 @@ struct HomeView: View {
                             .font(.system(size: 28, weight: .bold))
                             .foregroundColor(.white)
                             .padding()
-                            .background(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.blue]),
-                                                       startPoint: .topLeading,
-                                                       endPoint: .bottomTrailing))
+                            .background(Color.blue)
+//                            .background(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.blue]),
+//                                                       startPoint: .topLeading,
+//                                                       endPoint: .bottomTrailing))
                             .clipShape(Circle())
                             .shadow(color: .black.opacity(0.2), radius: 10, x: 5, y: 5)
                     }

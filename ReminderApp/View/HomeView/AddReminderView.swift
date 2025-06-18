@@ -24,58 +24,143 @@ struct AddReminderView: View {
     ]
 
     var body: some View {
-        NavigationView {
-            Form {
-                // Image preview
-                if let image = image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 150, height: 150)
-                } else {
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.4))
-                        .frame(width: 150, height: 150)
-                        .overlay(Text("No Image Selected").foregroundColor(.gray))
-                }
+        ZStack {
+            Color.white
+                .ignoresSafeArea()
 
-                // Image picker button
-                Button("Select Image") {
-                    showImagePicker = true
-                }
-                .sheet(isPresented: $showImagePicker) {
-                    ImagePicker(selectedImage: $image)
-                        .onDisappear {
-                            if let img = image {
-                                vm.selectedImage = img
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Image section
+                    Group {
+                        if let image = image {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 180, height: 180)
+                                .clipShape(RoundedRectangle(cornerRadius: 20))
+                                .overlay(RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.gray.opacity(0.3), lineWidth: 1))
+                        } else {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.gray.opacity(0.1))
+                                .frame(width: 180, height: 180)
+                                .overlay(Text("No Image Selected")
+                                    .foregroundColor(.white.opacity(0.7)))
+                        }
+
+                        Button(action: {
+                            showImagePicker = true
+                        }) {
+                            Text("Select Image")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue.opacity(0.7))
+                                .cornerRadius(15)
+                                .padding(.horizontal)
+                        }
+                        .sheet(isPresented: $showImagePicker) {
+                            ImagePicker(selectedImage: $image)
+                                .onDisappear {
+                                    if let img = image {
+                                        vm.selectedImage = img
+                                    }
+                                }
+                        }
+                    }
+
+                    // Picker
+                    HStack() {
+                        Text("Reminder Type")
+                            .foregroundColor(.black.opacity(0.8))
+                            .font(.headline)
+                            .padding(.leading, 20)
+                        
+                        Spacer()
+                        
+                        Picker("Select Title", selection: $vm.title) {
+                            ForEach(reminderTitles, id: \.self) { title in
+                                Text(title).tag(title)
                             }
                         }
-                }
+                        .pickerStyle(.menu)
+                        .padding()
+                        .frame(height: 40)
+                        .foregroundColor(.black)
+                        .background(Color.orange.opacity(0.1))
+                        .cornerRadius(10)
+                        .shadow(radius: 0.3)
+                        .padding(.horizontal)
+                    }
 
-                // Title Picker (replaces TextField)
-                Picker("Select Title", selection: $vm.title) {
-                    ForEach(reminderTitles, id: \.self) { title in
-                        Text(title)
+                    // Description
+                    VStack(alignment: .leading) {
+                        Text("Description")
+                            .foregroundColor(.black.opacity(0.8))
+                            .font(.headline)
+                            .padding(.leading, 20)
+
+                        TextField("Enter Description", text: $vm.detail)
+                            .padding()
+                            .background(Color.black.opacity(0.1))
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                            .padding(.horizontal)
+                    }
+
+                    // Time Picker
+                    HStack() {
+                        Text("Select Time")
+                            .foregroundColor(.black.opacity(0.8))
+                            .font(.headline)
+                            .padding(.leading, 20)
+
+                        Spacer()
+                        
+                        DatePicker("", selection: $vm.time, displayedComponents: .hourAndMinute)
+                            .datePickerStyle(.compact)
+                            .labelsHidden()
+                            .padding()
+                            .background(Color.black.opacity(0.1))
+                            .cornerRadius(10)
+                            .foregroundColor(.white)
+                            .padding(.horizontal)
+                    }
+
+                    // Toggle
+                    Toggle(isOn: $vm.isEnabled) {
+                        Text("Enable Notification")
+                            .foregroundColor(.black.opacity(0.8))
+                            .bold()
+                    }
+                    .toggleStyle(SwitchToggleStyle(tint: .red))
+                    .padding(.horizontal)
+
+                    // Save Button
+                    Button(action: {
+                        vm.save(context: context)
+                        dismiss()
+                    }) {
+                        Text("💾 Save Reminder")
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.orange.opacity(0.4))
+                            .cornerRadius(15)
+                            .padding(.horizontal)
                     }
                 }
-
-                // Remaining fields
-                TextField("Description", text: $vm.detail)
-                DatePicker("Time", selection: $vm.time, displayedComponents: .hourAndMinute)
-                Toggle("Enable Notification", isOn: $vm.isEnabled)
+                .padding(.top, 20)
             }
             .navigationTitle("New Reminder")
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
-                        vm.save(context: context)
-                        dismiss()
-                    }
-                }
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
                         dismiss()
                     }
+                    .foregroundColor(.white)
                 }
             }
         }
