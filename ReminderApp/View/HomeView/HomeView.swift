@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var context
     @FetchRequest(
@@ -16,32 +18,35 @@ struct HomeView: View {
     
     @State private var showAddReminder = false
     @State private var selectedReminder: Reminder? = nil
-    @State private var showActionSheet = false
     @State private var isEditing = false
-    
-    
+    @State private var isSelectionMode = false
+
     var body: some View {
         ZStack {
-            // Background gradient
-            Color.white
-            //            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)]),
-            //                           startPoint: .topLeading,
-            //                           endPoint: .bottomTrailing)
-                .ignoresSafeArea()
+            Color.white.ignoresSafeArea()
             
             VStack(spacing: 20) {
                 HStack {
                     Text("⏰ My Reminders")
-                        .font(.largeTitle.bold())
+                        .font(.title.bold())
                         .foregroundColor(.black)
-                        .padding(.leading)
-                    
-                    
                     
                     Spacer()
                     
+                    Button(action: {
+                        isSelectionMode.toggle()
+                        selectedReminder = nil
+                    }) {
+                        Text(isSelectionMode ? "Cancel" : "Select")
+                            .font(.headline)
+                            .padding(8)
+                            .foregroundColor(.blue)
+                            .background(Color.gray.opacity(0.2))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding(.trailing, 40)
                 }
-                
+                .padding(.horizontal)
                 
                 if reminders.isEmpty {
                     Spacer()
@@ -53,23 +58,27 @@ struct HomeView: View {
                     ScrollView {
                         LazyVStack(spacing: 16) {
                             ForEach(reminders) { reminder in
-                                ReminderCardView(reminder: reminder,
-                                                 onLongPress: {
-                                    selectedReminder = reminder
-                                },
-                                                 isSelected: selectedReminder == reminder)
+                                ReminderCardView(
+                                    reminder: reminder,
+                                    isSelectable: isSelectionMode,
+                                    isSelected: selectedReminder == reminder,
+                                    onTap: {
+                                        if isSelectionMode {
+                                            selectedReminder = (selectedReminder == reminder) ? nil : reminder
+                                        }
+                                    }
+                                )
                             }
-                            
-                            
                         }
                     }
                 }
             }
             .padding(.top)
             .onTapGesture {
-                selectedReminder = nil
+                if isSelectionMode {
+                    selectedReminder = nil
+                }
             }
-            
             
             // Floating Add Button
             VStack {
@@ -84,9 +93,6 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .padding()
                             .background(Color.blue)
-                        //                            .background(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.blue]),
-                        //                                                       startPoint: .topLeading,
-                        //                                                       endPoint: .bottomTrailing))
                             .clipShape(Circle())
                             .shadow(color: .black.opacity(0.2), radius: 10, x: 5, y: 5)
                     }
@@ -97,8 +103,8 @@ struct HomeView: View {
                 }
             }
             
-            // Top-right action menu for selected card
-            if let selected = selectedReminder {
+            // Top-right menu for selected reminder
+            if let selected = selectedReminder, isSelectionMode {
                 VStack {
                     HStack {
                         Spacer()
@@ -117,15 +123,15 @@ struct HomeView: View {
                                 .font(.system(size: 30))
                                 .padding()
                                 .foregroundColor(.black)
+                            
                         }
                     }
                     Spacer()
                 }
-                .animation(.easeInOut, value: selectedReminder)
                 .transition(.opacity)
+                .animation(.easeInOut, value: selectedReminder)
             }
         }
-        // Edit Reminder Sheet
         .sheet(isPresented: $isEditing) {
             if let reminderToEdit = selectedReminder {
                 EditReminderView(reminder: reminderToEdit) {
@@ -135,14 +141,10 @@ struct HomeView: View {
             }
         }
     }
-    
+
     private func deleteReminder(reminder: Reminder) {
         context.delete(reminder)
-        do {
-            try context.save()
-            selectedReminder = nil
-        } catch {
-            print("Error deleting reminder: \(error)")
-        }
+        try? context.save()
+        selectedReminder = nil
     }
 }

@@ -7,14 +7,16 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ReminderCardView: View {
     let reminder: Reminder
-        let onLongPress: () -> Void
+    var isSelectable: Bool
     var isSelected: Bool
+    var onTap: () -> Void
 
     var body: some View {
         ZStack {
-            // Blurred glass effect with gradient stroke border
             RoundedRectangle(cornerRadius: 25)
                 .fill(.ultraThinMaterial)
                 .overlay(
@@ -56,8 +58,7 @@ struct ReminderCardView: View {
                 }
 
                 Spacer()
-                
-                // Image based on saved imageName
+
                 if let imageName = reminder.imageName,
                    let uiImage = UIImage(named: imageName) {
                     Image(uiImage: uiImage)
@@ -73,18 +74,18 @@ struct ReminderCardView: View {
                         .frame(width: 70, height: 70)
                         .overlay(Text("No Image").foregroundColor(.gray))
                 }
-
-
             }
             .padding()
         }
         .padding(.horizontal)
-                .padding(.vertical, 4)
-                .scaleEffect(isSelected ? 1.05 : 1.0)
-                .offset(y: isSelected ? -5 : 0)
-                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
-                .onLongPressGesture {
-                    onLongPress()
-                }
+        .padding(.vertical, 4)
+        .scaleEffect(isSelected ? 1.05 : 1.0)
+        .offset(y: isSelected ? -5 : 0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+        .onTapGesture {
+            if isSelectable {
+                onTap()
+            }
+        }
     }
 }
