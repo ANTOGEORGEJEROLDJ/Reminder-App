@@ -7,11 +7,21 @@
 
 import SwiftUI
 import UserNotifications
-//import Firebase
+import FirebaseCore
+import Firebase
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()  // ✅ Only here
+    return true
+  }
+}
 
 @main
 struct ReminderApp: App {
     let persistenceController = PersistenceController.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
     init() {
         requestNotificationPermission()
