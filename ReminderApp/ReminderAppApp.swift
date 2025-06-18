@@ -6,15 +6,16 @@
 //
 
 import SwiftUI
+import UserNotifications
 //import Firebase
 
 @main
-struct DeveloperReminderAppApp: App {
+struct ReminderApp: App {
     let persistenceController = PersistenceController.shared
-//
-//    init() {
-//        FirebaseApp.configure()
-//    }
+
+    init() {
+        requestNotificationPermission()
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -22,4 +23,16 @@ struct DeveloperReminderAppApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
+    
+
+    func requestNotificationPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
+            if let error = error {
+                print("Notification permission error: \(error.localizedDescription)")
+            } else {
+                print("Permission granted: \(granted)")
+            }
+        }
+    }
+
 }

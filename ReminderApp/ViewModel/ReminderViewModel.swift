@@ -8,30 +8,60 @@
 import Foundation
 import SwiftUI
 import CoreData
+import UserNotifications
+
 
 class ReminderViewModel: ObservableObject {
-    @Published var title: String = ""
-    @Published var detail: String = ""
-    @Published var time: Date = Date()
-    @Published var isEnabled: Bool = false
-    var selectedImage: UIImage? = nil
-    
+    @Published var title = ""
+    @Published var detail = ""
+    @Published var time = Date()
+    @Published var isEnabled = false
+    @Published var selectedImage: UIImage?
 
     func save(context: NSManagedObjectContext) {
-        let newReminder = Reminder(context: context)
-        newReminder.title = title
-        newReminder.detail = detail
-        newReminder.time = time
-        newReminder.isEnabled = isEnabled
+        let reminder = Reminder(context: context)
+        reminder.title = title
+        reminder.detail = detail
+        reminder.time = time
+        reminder.isEnabled = isEnabled
 
-        if let image = selectedImage {
-            newReminder.image = image.jpegData(compressionQuality: 0.8)
+        if let imageData = selectedImage?.jpegData(compressionQuality: 0.8) {
+            reminder.image = imageData
         }
 
         do {
             try context.save()
+            if isEnabled {
+                scheduleNotification(for: reminder)
+            }
         } catch {
-            print("Failed to save reminder: \(error)")
+            print("Error saving reminder: \(error.localizedDescription)")
+        }
+    }
+
+    private func scheduleNotification(for reminder: Reminder) {
+        let content = UNMutableNotificationContent()
+        content.title = reminder.title ?? "Reminder"
+        content.body = reminder.detail ?? ""
+        content.sound = .default
+
+        guard let time = reminder.time else { return }
+
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.hour, .minute], from: time)
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+
+        let request = UNNotificationRequest(identifier: UUID().uuidString,
+                                            content: content,
+                                            trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Notification scheduling error: \(error.localizedDescription)")
+            } else {
+                print("Notification scheduled at \(dateComponents)")
+            }
         }
     }
 }
