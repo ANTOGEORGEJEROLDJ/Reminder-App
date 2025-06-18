@@ -68,7 +68,7 @@ struct AddReminderView: View {
                         .padding()
                         .frame(height: 40)
                         .foregroundColor(.black)
-                        .background(Color.orange.opacity(0.1))
+                        .background(Color.red.opacity(0.2))
                         .cornerRadius(10)
                         .shadow(radius: 0.3)
                         .padding(.horizontal)
@@ -127,7 +127,7 @@ struct AddReminderView: View {
                             .foregroundColor(.white)
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(Color.orange.opacity(0.4))
+                            .background(Color.red.opacity(0.6))
                             .cornerRadius(15)
                             .padding(.horizontal)
                     }

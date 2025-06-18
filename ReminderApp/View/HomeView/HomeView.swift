@@ -13,29 +13,36 @@ struct HomeView: View {
         entity: Reminder.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \Reminder.time, ascending: true)]
     ) var reminders: FetchedResults<Reminder>
-
+    
     @State private var showAddReminder = false
-
+    @State private var selectedReminder: Reminder? = nil
+    @State private var showActionSheet = false
+    @State private var isEditing = false
+    
+    
     var body: some View {
         ZStack {
             // Background gradient
             Color.white
-//            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)]),
-//                           startPoint: .topLeading,
-//                           endPoint: .bottomTrailing)
+            //            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.4), Color.purple.opacity(0.3)]),
+            //                           startPoint: .topLeading,
+            //                           endPoint: .bottomTrailing)
                 .ignoresSafeArea()
-
+            
             VStack(spacing: 20) {
                 HStack {
                     Text("⏰ My Reminders")
                         .font(.largeTitle.bold())
                         .foregroundColor(.black)
                         .padding(.leading)
-
+                    
+                    
+                    
                     Spacer()
                     
                 }
-
+                
+                
                 if reminders.isEmpty {
                     Spacer()
                     Text("No Reminders Yet")
@@ -46,16 +53,24 @@ struct HomeView: View {
                     ScrollView {
                         LazyVStack(spacing: 16) {
                             ForEach(reminders) { reminder in
-                                ReminderCardView(reminder: reminder)
-                                    .padding(.horizontal)
-                                    .transition(.scale)
+                                ReminderCardView(reminder: reminder,
+                                                 onLongPress: {
+                                    selectedReminder = reminder
+                                },
+                                                 isSelected: selectedReminder == reminder)
                             }
+                            
+                            
                         }
                     }
                 }
             }
             .padding(.top)
-
+            .onTapGesture {
+                selectedReminder = nil
+            }
+            
+            
             // Floating Add Button
             VStack {
                 Spacer()
@@ -69,9 +84,9 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .padding()
                             .background(Color.blue)
-//                            .background(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.blue]),
-//                                                       startPoint: .topLeading,
-//                                                       endPoint: .bottomTrailing))
+                        //                            .background(LinearGradient(gradient: Gradient(colors: [Color.pink, Color.blue]),
+                        //                                                       startPoint: .topLeading,
+                        //                                                       endPoint: .bottomTrailing))
                             .clipShape(Circle())
                             .shadow(color: .black.opacity(0.2), radius: 10, x: 5, y: 5)
                     }
@@ -81,6 +96,53 @@ struct HomeView: View {
                     }
                 }
             }
+            
+            // Top-right action menu for selected card
+            if let selected = selectedReminder {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Menu {
+                            Button("📝 Edit") {
+                                isEditing = true
+                            }
+                            Button("🗑️ Delete", role: .destructive) {
+                                deleteReminder(reminder: selected)
+                            }
+                            Button("❌ Cancel") {
+                                selectedReminder = nil
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle.fill")
+                                .font(.system(size: 30))
+                                .padding()
+                                .foregroundColor(.black)
+                        }
+                    }
+                    Spacer()
+                }
+                .animation(.easeInOut, value: selectedReminder)
+                .transition(.opacity)
+            }
+        }
+        // Edit Reminder Sheet
+        .sheet(isPresented: $isEditing) {
+            if let reminderToEdit = selectedReminder {
+                EditReminderView(reminder: reminderToEdit) {
+                    isEditing = false
+                    selectedReminder = nil
+                }
+            }
+        }
+    }
+    
+    private func deleteReminder(reminder: Reminder) {
+        context.delete(reminder)
+        do {
+            try context.save()
+            selectedReminder = nil
+        } catch {
+            print("Error deleting reminder: \(error)")
         }
     }
 }

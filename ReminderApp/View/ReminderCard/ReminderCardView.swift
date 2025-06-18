@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ReminderCardView: View {
     let reminder: Reminder
+        let onLongPress: () -> Void
+    var isSelected: Bool
 
     var body: some View {
         ZStack {
@@ -73,20 +75,16 @@ struct ReminderCardView: View {
                 }
 
 
-//                if let imageData = reminder.image,
-//                   let uiImage = UIImage(data: imageData) {
-//                    Image(uiImage: uiImage)
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fill)
-//                        .frame(width: 70, height: 70)
-//                        .clipShape(RoundedRectangle(cornerRadius: 15))
-//                        .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.3), lineWidth: 1))
-//                        .shadow(radius: 4)
-//                }
             }
             .padding()
         }
         .padding(.horizontal)
-        .padding(.vertical, 4)
+                .padding(.vertical, 4)
+                .scaleEffect(isSelected ? 1.05 : 1.0)
+                .offset(y: isSelected ? -5 : 0)
+                .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isSelected)
+                .onLongPressGesture {
+                    onLongPress()
+                }
     }
 }
