@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 71;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		238DB5940DD9FE0A4ADAF67A8F4DE628 /* Pods-ReminderAppTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AB49ED2AE2EE2A4C1AB3540500AF7BA6 /* Pods-ReminderAppTests-dummy.m */; };
 		3871BF612A73C845689EF2210D924660 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
 		41DF3C69AF2E324FAEE3BD2D2B4C753F /* Pods-ReminderApp-ReminderAppUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 190A1F93EAD6FCABFC5672C5465F3402 /* Pods-ReminderApp-ReminderAppUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4E1606FC2E0319C5005E1FA2 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 4E1606FB2E0319C5005E1FA2 /* GoogleSignIn */; };
+		4E1606FE2E0319C5005E1FA2 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4E1606FD2E0319C5005E1FA2 /* GoogleSignInSwift */; };
 		62009EAD783B83B7E9928E12A762107C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
 		A973D59C07824691F302B34029D3775B /* Pods-ReminderAppTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B699C304624EC676978ABAFF6AC4323A /* Pods-ReminderAppTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B0F6232B9B8A095090C001C18F53BB95 /* Pods-ReminderApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 7503FD3DD9B667551258C9FB83D49A88 /* Pods-ReminderApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -37,22 +39,22 @@
 		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3B9796C2FDB276CF1B662E98245F124E /* Pods-ReminderApp-ReminderAppUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ReminderApp-ReminderAppUITests.modulemap"; sourceTree = "<group>"; };
 		4B68A7C794BFA21CA3771B8343D2A362 /* Pods-ReminderApp-ReminderAppUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReminderApp-ReminderAppUITests-acknowledgements.plist"; sourceTree = "<group>"; };
-		56E3B4EE090710D8A0B75A8404C31351 /* Pods-ReminderApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ReminderApp"; path = Pods_ReminderApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56E3B4EE090710D8A0B75A8404C31351 /* Pods_ReminderApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReminderApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DCD96565D414B0B4613FE8C84BF89AD /* Pods-ReminderApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReminderApp-Info.plist"; sourceTree = "<group>"; };
 		6E57F2B1194F8D1CCD240B1862E6D26F /* Pods-ReminderApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReminderApp-acknowledgements.plist"; sourceTree = "<group>"; };
 		7503FD3DD9B667551258C9FB83D49A88 /* Pods-ReminderApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ReminderApp-umbrella.h"; sourceTree = "<group>"; };
 		9435DC28E1255404807602ADEB201477 /* Pods-ReminderApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReminderApp.debug.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9FF16A12E3E4619F2D811FE02A85EE26 /* Pods-ReminderApp-ReminderAppUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReminderApp-ReminderAppUITests-Info.plist"; sourceTree = "<group>"; };
 		AB49ED2AE2EE2A4C1AB3540500AF7BA6 /* Pods-ReminderAppTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ReminderAppTests-dummy.m"; sourceTree = "<group>"; };
 		ACF81BF850796E599F2C2D5C5599019C /* Pods-ReminderApp-ReminderAppUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ReminderApp-ReminderAppUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B699C304624EC676978ABAFF6AC4323A /* Pods-ReminderAppTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ReminderAppTests-umbrella.h"; sourceTree = "<group>"; };
 		B717BF9A4180A3FEC5D706839EE099AF /* Pods-ReminderApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReminderApp.release.xcconfig"; sourceTree = "<group>"; };
-		B8B7639498F1E2EC33624C8A785305BD /* Pods-ReminderAppTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ReminderAppTests"; path = Pods_ReminderAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8B7639498F1E2EC33624C8A785305BD /* Pods_ReminderAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReminderAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7ADCF31913976C2071EED27319C13CD /* Pods-ReminderApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-ReminderApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		CEDED7EC7FA312D8C1CA0E63886740AC /* Pods-ReminderApp-ReminderAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReminderApp-ReminderAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D7377B476C0F14A47008AC239A4C22C0 /* Pods-ReminderApp-ReminderAppUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ReminderApp-ReminderAppUITests-dummy.m"; sourceTree = "<group>"; };
-		E1B96B856A9879FF119FBB54CD29AC5C /* Pods-ReminderApp-ReminderAppUITests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ReminderApp-ReminderAppUITests"; path = Pods_ReminderApp_ReminderAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1B96B856A9879FF119FBB54CD29AC5C /* Pods_ReminderApp_ReminderAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReminderApp_ReminderAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9EB8AA63BC74B9AC008EDCB023236CC /* Pods-ReminderApp-ReminderAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReminderApp-ReminderAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EC819B958A0E93BA0C361C96FB88D1B8 /* Pods-ReminderAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ReminderAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F4B1D69C57DE200922448118B8FD76DC /* Pods-ReminderAppTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ReminderAppTests-Info.plist"; sourceTree = "<group>"; };
@@ -73,7 +75,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E1606FE2E0319C5005E1FA2 /* GoogleSignInSwift in Frameworks */,
 				D76C1C217B161E87F8140698AC83C02C /* Foundation.framework in Frameworks */,
+				4E1606FC2E0319C5005E1FA2 /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +153,9 @@
 		C777B686BB6A39445B16C7E93F01A7CB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				56E3B4EE090710D8A0B75A8404C31351 /* Pods-ReminderApp */,
-				E1B96B856A9879FF119FBB54CD29AC5C /* Pods-ReminderApp-ReminderAppUITests */,
-				B8B7639498F1E2EC33624C8A785305BD /* Pods-ReminderAppTests */,
+				56E3B4EE090710D8A0B75A8404C31351 /* Pods_ReminderApp.framework */,
+				E1B96B856A9879FF119FBB54CD29AC5C /* Pods_ReminderApp_ReminderAppUITests.framework */,
+				B8B7639498F1E2EC33624C8A785305BD /* Pods_ReminderAppTests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -227,7 +231,7 @@
 			);
 			name = "Pods-ReminderApp";
 			productName = Pods_ReminderApp;
-			productReference = 56E3B4EE090710D8A0B75A8404C31351 /* Pods-ReminderApp */;
+			productReference = 56E3B4EE090710D8A0B75A8404C31351 /* Pods_ReminderApp.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6E65E65274B07668F1F683962228A1F4 /* Pods-ReminderAppTests */ = {
@@ -246,7 +250,7 @@
 			);
 			name = "Pods-ReminderAppTests";
 			productName = Pods_ReminderAppTests;
-			productReference = B8B7639498F1E2EC33624C8A785305BD /* Pods-ReminderAppTests */;
+			productReference = B8B7639498F1E2EC33624C8A785305BD /* Pods_ReminderAppTests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		BBBB9CC88298CAE2E9CAC0FBE65B0D02 /* Pods-ReminderApp-ReminderAppUITests */ = {
@@ -264,7 +268,7 @@
 			);
 			name = "Pods-ReminderApp-ReminderAppUITests";
 			productName = Pods_ReminderApp_ReminderAppUITests;
-			productReference = E1B96B856A9879FF119FBB54CD29AC5C /* Pods-ReminderApp-ReminderAppUITests */;
+			productReference = E1B96B856A9879FF119FBB54CD29AC5C /* Pods_ReminderApp_ReminderAppUITests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -285,8 +289,9 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			minimizedProjectReferenceProxies = 0;
-			preferredProjectObjectVersion = 77;
+			packageReferences = (
+				4E1606FA2E0319C4005E1FA2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
 			productRefGroup = C777B686BB6A39445B16C7E93F01A7CB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -764,6 +769,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4E1606FA2E0319C4005E1FA2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4E1606FB2E0319C5005E1FA2 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E1606FA2E0319C4005E1FA2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		4E1606FD2E0319C5005E1FA2 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4E1606FA2E0319C4005E1FA2 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 }

@@ -25,6 +25,7 @@ class ReminderViewModel: ObservableObject {
         reminder.time = time
         reminder.isEnabled = isEnabled
         reminder.imageName = title // Save title as image name
+        
 
         if let imageData = selectedImage?.jpegData(compressionQuality: 0.8) {
             reminder.image = imageData
@@ -33,7 +34,7 @@ class ReminderViewModel: ObservableObject {
         do {
             try context.save()
             if isEnabled {
-                scheduleNotification(for: reminder)
+                NotificationManager.shared.scheduleNotification(for: reminder)
             }
         } catch {
             print("Error saving reminder: \(error.localizedDescription)")

@@ -29,7 +29,7 @@ struct ReminderApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            LoginView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
